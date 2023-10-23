@@ -1,10 +1,12 @@
 package main
 
 import (
+	"database/sql"
 	"golang/config/db"
-	"golang/product"
+	"golang/domain/product"
 	"golang/server"
 	"gorm.io/gorm"
+	"log"
 )
 
 func migrateAll(db *gorm.DB) {
@@ -20,7 +22,12 @@ func main() {
 
 	dbManager, _ := dbInit.DB()
 
-	defer dbManager.Close()
+	defer func(dbManager *sql.DB) {
+		err := dbManager.Close()
+		if err != nil {
+			log.Fatal(err.Error())
+		}
+	}(dbManager)
 
 	server.Init()
 }

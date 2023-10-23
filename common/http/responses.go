@@ -16,6 +16,5 @@ func ReturnSuccess(value any) Success {
 }
 
 func ReturnError(value any) Error {
-	println(value)
 	return Error{Success: false, Error: value}
 }

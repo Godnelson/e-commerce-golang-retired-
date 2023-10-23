@@ -2,7 +2,7 @@ package server
 
 import (
 	"github.com/gofiber/fiber/v2"
-	"golang/product"
+	"golang/domain/product"
 	"log"
 )
 
@@ -11,7 +11,9 @@ func instanceRoutes(app *fiber.App) {
 }
 
 func Init() fiber.App {
-	app := *fiber.New()
+	app := *fiber.New(fiber.Config{
+		BodyLimit: 100 * 1024 * 1024,
+	})
 
 	instanceRoutes(&app)
 

@@ -51,4 +51,15 @@ func Routes(r fiber.Router) {
 		return c.Status(200).JSON(http.ReturnSuccess(&product))
 	})
 
+	r.Delete("/:id", func(c *fiber.Ctx) error {
+
+		err := UseCases().delete(c.Params("id"))
+
+		if err != nil {
+			return c.Status(400).JSON(http.ReturnError(err.Error()))
+		}
+
+		return c.Status(204).JSON(http.ReturnSuccess("product deleted successfully"))
+	})
+
 }
